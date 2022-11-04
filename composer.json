@@ -1,0 +1,8 @@
+{
+    "require": {
+        "giggsey/libphonenumber-for-php": "^8.12"
+    },
+    "require-dev": {
+        "deployer/deployer": "^7.0"
+    }
+}
