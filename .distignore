@@ -1,0 +1,46 @@
+# WP-CLI distribution archive
+# https://wordpress.stackexchange.com/questions/290025/what-tools-respect-distignore
+/.distignore
+
+# Desktop Services Store
+.DS_Store
+
+# Git
+/.git
+/.gitignore
+
+# GitHub
+/.github/
+
+# Build
+/build/
+
+# Deployer.org
+/deploy.php
+
+# Node.js
+/node_modules/
+
+# WordPress
+/wordpress/
+
+# Composer bin plugin
+/vendor-bin/
+
+# PHP_CodeSniffer
+/phpcs.xml
+/phpcs.xml.dist
+
+# PHPStan
+/phpstan.neon
+/phpstan.neon.dist
+
+# Psalm
+/psalm.xml
+/psalm.xml.dist
+
+# wp-env
+/wp-env.json
+
+# Voys call notification controller
+/call-notification-controller/
