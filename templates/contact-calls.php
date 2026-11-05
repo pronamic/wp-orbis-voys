@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					$duration = \sprintf( '%02d:%02d:%02d', \intdiv( $seconds, 3600 ), \intdiv( $seconds % 3600, 60 ), $seconds % 60 );
 
-					$title = \sprintf(
+					$time_title = \sprintf(
 						/* translators: 1: Date and time in site timezone, 2: Time in UTC */
 						\__( '%1$s (%2$s UTC)', 'orbis-voys' ),
 						\wp_date( 'l j F Y H:i:s T', $timestamp ),
@@ -74,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<tr>
 						<td>
-							<time datetime="<?php echo \esc_attr( (string) \wp_date( 'c', $timestamp ) ); ?>" title="<?php echo \esc_attr( $title ); ?>">
+							<time datetime="<?php echo \esc_attr( (string) \wp_date( 'c', $timestamp ) ); ?>" title="<?php echo \esc_attr( $time_title ); ?>">
 								<?php echo \esc_html( (string) \wp_date( 'd-m-Y H:i:s', $timestamp ) ); ?>
 							</time>
 						</td>

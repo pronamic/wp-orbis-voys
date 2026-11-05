@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-11-05T18:50:19+00:00\n"
-"PO-Revision-Date: 2026-11-05T19:05:49+00:00\n"
+"PO-Revision-Date: 2026-11-05T19:08:57+00:00\n"
 "Language: nl_NL\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -39,30 +39,36 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.eu/"
 
-#: templates/contact-calls.php:24
+#: templates/contact-calls.php:25
 msgid "Phone Calls"
 msgstr "Telefoongesprekken"
 
-#: templates/contact-calls.php:30
+#: templates/contact-calls.php:31
 msgid "No phone calls found."
 msgstr "Geen telefoongesprekken gevonden."
 
-#: templates/contact-calls.php:39
+#: templates/contact-calls.php:40
 msgid "Date / Time"
 msgstr "Datum / tijd"
 
-#: templates/contact-calls.php:40
+#: templates/contact-calls.php:41
 msgid "Direction"
 msgstr "Richting"
 
-#: templates/contact-calls.php:41
+#: templates/contact-calls.php:42
 msgid "Duration"
 msgstr "Duur"
 
-#: templates/contact-calls.php:74
+#. translators: 1: Date and time in site timezone, 2: Time in UTC
+#: templates/contact-calls.php:68
+#, php-format
+msgid "%1$s (%2$s UTC)"
+msgstr "%1$s (%2$s UTC)"
+
+#: templates/contact-calls.php:87
 msgid "Inbound"
 msgstr "Inkomend"
 
-#: templates/contact-calls.php:78
+#: templates/contact-calls.php:91
 msgid "Outbound"
 msgstr "Uitgaand"
