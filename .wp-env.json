@@ -16,6 +16,7 @@
 	"mappings": {
 		"wp-content/plugins/orbis-contacts": "https://github.com/pronamic/wp-orbis-contacts/releases/download/v1.0.0-rc.2/orbis-contacts.1.0.0.zip",
 		"wp-content/plugins/orbis-persons": "https://github.com/pronamic/wp-orbis-persons/releases/download/v1.0.0-rc.1/orbis-persons.1.0.0.zip",
+		"wp-content/plugins/orbis-organizations": "https://github.com/pronamic/wp-orbis-organizations/releases/download/v1.0.0-rc.1/orbis-organizations.1.0.0.zip",
 		"wp-content/plugins/orbis-voys-dev": "./",
 		"wp-content/plugins/orbis-voys": "./build/orbis-voys/"
 	},

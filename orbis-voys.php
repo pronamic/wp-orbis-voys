@@ -10,11 +10,11 @@
  * @wordpress-plugin
  * Plugin Name:       Orbis Voys
  * Plugin URI:        https://wp.pronamic.directory/plugins/orbis-voys/
- * Description:       The Orbis Voys plugin shows Voys phone calls on Orbis persons.
+ * Description:       The Orbis Voys plugin shows Voys phone calls on Orbis contacts, such as persons and organizations.
  * Version:           1.0.0
  * Requires at least: 7.1
  * Requires PHP:      8.3
- * Requires Plugins:  orbis-contacts, orbis-persons
+ * Requires Plugins:  orbis-contacts
  * Author:            Pronamic
  * Author URI:        https://www.pronamic.eu/
  * Text Domain:       orbis-voys

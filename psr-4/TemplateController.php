@@ -28,16 +28,23 @@ final readonly class TemplateController {
 	public function __construct(
 		private CallRepository $calls
 	) {
-		\add_action( 'orbis_after_side_content', $this->maybe_include_person_calls( ... ) );
+		\add_action( 'orbis_after_side_content', $this->maybe_include_contact_calls( ... ) );
 	}
 
 	/**
-	 * Maybe include the calls from and to the phone numbers of a person.
+	 * Maybe include the calls from and to the phone numbers of a contact.
+	 *
+	 * A contact is a post of a post type that supports `orbis-contact`, such
+	 * as an Orbis person or organization.
 	 *
 	 * @return void
 	 */
-	private function maybe_include_person_calls(): void {
-		if ( ! \is_singular( 'orbis_person' ) ) {
+	private function maybe_include_contact_calls(): void {
+		if ( ! \is_singular() ) {
+			return;
+		}
+
+		if ( ! \post_type_supports( (string) \get_post_type(), 'orbis-contact' ) ) {
 			return;
 		}
 
@@ -53,7 +60,7 @@ final readonly class TemplateController {
 
 		$calls = $this->calls->get_calls_by_phone_numbers( $phone_numbers );
 
-		include __DIR__ . '/../templates/person-calls.php';
+		include __DIR__ . '/../templates/contact-calls.php';
 	}
 
 	/**

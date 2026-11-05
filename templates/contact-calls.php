@@ -1,18 +1,19 @@
 <?php
 /**
- * Person calls
+ * Contact calls
  *
  * @author    Pronamic
  * @copyright 2005-2026 Pronamic
  * @license   GPL-2.0-or-later
  * @package   Pronamic\Orbis\Voys
  *
- * @var list<array{call_id: string, direction: string, caller_number: string, caller_name: string, in_progress_at: string, ended_at: string}> $calls Calls from and to the phone numbers of the person.
+ * @var list<array{call_id: string, direction: string, caller_number: string, caller_name: string, in_progress_at: string, ended_at: string}> $calls Calls from and to the phone numbers of the contact.
  */
 
 namespace Pronamic\Orbis\Voys;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -48,22 +49,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<?php
 
+					// Voys timestamps are stored in UTC, see `call-notification-controller/parse.php`.
 					try {
-						$in_progress_at = new DateTimeImmutable( $call['in_progress_at'] );
-						$ended_at       = new DateTimeImmutable( $call['ended_at'] );
+						$in_progress_at = new DateTimeImmutable( $call['in_progress_at'], new DateTimeZone( 'UTC' ) );
+						$ended_at       = new DateTimeImmutable( $call['ended_at'], new DateTimeZone( 'UTC' ) );
 					} catch ( Exception ) {
 						continue;
 					}
 
-					$seconds = \max( 0, $ended_at->getTimestamp() - $in_progress_at->getTimestamp() );
+					$timestamp = $in_progress_at->getTimestamp();
+
+					$seconds = \max( 0, $ended_at->getTimestamp() - $timestamp );
 
 					$duration = \sprintf( '%02d:%02d:%02d', \intdiv( $seconds, 3600 ), \intdiv( $seconds % 3600, 60 ), $seconds % 60 );
+
+					$title = \sprintf(
+						/* translators: 1: Date and time in site timezone, 2: Time in UTC */
+						\__( '%1$s (%2$s UTC)', 'orbis-voys' ),
+						\wp_date( 'l j F Y H:i:s T', $timestamp ),
+						\gmdate( 'H:i:s', $timestamp )
+					);
 
 					?>
 
 					<tr>
 						<td>
-							<?php echo \esc_html( $in_progress_at->format( 'd-m-Y H:i:s' ) ); ?>
+							<time datetime="<?php echo \esc_attr( (string) \wp_date( 'c', $timestamp ) ); ?>" title="<?php echo \esc_attr( $title ); ?>">
+								<?php echo \esc_html( (string) \wp_date( 'd-m-Y H:i:s', $timestamp ) ); ?>
+							</time>
 						</td>
 						<td>
 							<span class="fa-stack">
@@ -81,7 +94,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</span>
 						</td>
 						<td>
-							<?php echo \esc_html( $duration ); ?>
+							<time datetime="<?php echo \esc_attr( 'PT' . $seconds . 'S' ); ?>">
+								<?php echo \esc_html( $duration ); ?>
+							</time>
 						</td>
 					</tr>
 

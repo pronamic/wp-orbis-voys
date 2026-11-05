@@ -1,13 +1,13 @@
 # Orbis Voys
 
-The Orbis Voys plugin shows Voys phone calls on Orbis persons.
+The Orbis Voys plugin shows Voys phone calls on Orbis contacts, such as persons and organizations.
 
 ## Requirements
 
 - PHP 8.3+
 - WordPress 7.1+
 - [Orbis Contacts](https://github.com/pronamic/wp-orbis-contacts)
-- [Orbis Persons](https://github.com/pronamic/wp-orbis-persons)
+- Optional: [Orbis Persons](https://github.com/pronamic/wp-orbis-persons) and/or [Orbis Organizations](https://github.com/pronamic/wp-orbis-organizations), or any other post type that supports `orbis-contact`
 - Composer
 - Node.js / npm
 
@@ -15,7 +15,7 @@ The Orbis Voys plugin shows Voys phone calls on Orbis persons.
 
 Voys sends a [call notification](https://www.voys.nl/hulp/freedom/gespreksnotificaties/) (webhook) for every status change of a call. The standalone script in [`call-notification-controller/`](call-notification-controller/) stores these notifications in the `orbis_voys_notifications` database table. This script runs outside WordPress and is not part of the plugin build.
 
-On a single person page the plugin adds a "Phone Calls" card through the `orbis_after_side_content` action. It lists the last 40 calls from or to the phone numbers of the person in Orbis Contacts. Both the E.164 format (`+31612345678`) and the national format (`0612345678`) are matched.
+On a single contact page (every post type that supports `orbis-contact`, such as persons and organizations) the plugin adds a "Phone Calls" card through the `orbis_after_side_content` action. It lists the last 40 calls from or to the phone numbers of the contact in Orbis Contacts. Both the E.164 format (`+31612345678`) and the national format (`0612345678`) are matched.
 
 ## Installation
 
@@ -35,7 +35,7 @@ npx wp-env start
 npx wp-env stop
 ```
 
-The `.wp-env.json` maps the plugin twice into the WordPress environment, next to release builds of Orbis Contacts and Orbis Persons:
+The `.wp-env.json` maps the plugin twice into the WordPress environment, next to release builds of Orbis Contacts, Orbis Persons and Orbis Organizations:
 
 | Mount path | Source | Purpose |
 |---|---|---|

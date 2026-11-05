@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Modernized the plugin according to the [SolveBeam WordPress Plugin Boilerplate](https://github.com/solvebeam/solvebeam-wordpress-plugin-boilerplate): PSR-4 classes in `psr-4/`, Jetpack Autoloader, PHPCS, PHPStan and Rector.
-- Phone numbers of a person are now read from Orbis Contacts (`_orbis_contact_phone`) instead of the `_orbis_phone_number` and `_orbis_mobile_number` post meta.
-- Requires PHP 8.3, WordPress 7.1 and the Orbis Contacts and Orbis Persons plugins.
+- Phone calls are shown on every Orbis contact (post types that support `orbis-contact`, such as persons and organizations) instead of only on persons.
+- Phone numbers of a contact are now read from Orbis Contacts (`_orbis_contact_phone`) instead of the `_orbis_phone_number` and `_orbis_mobile_number` post meta.
+- Requires PHP 8.3, WordPress 7.1 and the Orbis Contacts plugin.
 - Deploy with Deployer through the shared `~/deployer.php` hosts.
 
 ### Removed

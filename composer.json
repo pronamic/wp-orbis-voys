@@ -1,6 +1,6 @@
 {
 	"name": "pronamic/wp-orbis-voys",
-	"description": "The Orbis Voys plugin shows Voys phone calls on Orbis persons.",
+	"description": "The Orbis Voys plugin shows Voys phone calls on Orbis contacts, such as persons and organizations.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"keywords": [

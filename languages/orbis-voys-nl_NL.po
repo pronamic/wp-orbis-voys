@@ -8,9 +8,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-11-05T18:50:19+00:00\n"
-"PO-Revision-Date: 2026-11-05T12:00:00+00:00\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"PO-Revision-Date: 2026-11-05T19:05:49+00:00\n"
 "Language: nl_NL\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: orbis-voys\n"
 
@@ -26,8 +26,8 @@ msgstr "https://wp.pronamic.directory/plugins/orbis-voys/"
 
 #. Description of the plugin
 #: orbis-voys.php:13
-msgid "The Orbis Voys plugin shows Voys phone calls on Orbis persons."
-msgstr "De Orbis Voys-plugin toont Voys-telefoongesprekken bij Orbis-personen."
+msgid "The Orbis Voys plugin shows Voys phone calls on Orbis contacts, such as persons and organizations."
+msgstr "De Orbis Voys-plugin toont Voys-telefoongesprekken bij Orbis-contacten, zoals personen en organisaties."
 
 #. Author of the plugin
 #: orbis-voys.php:18
@@ -39,30 +39,30 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.eu/"
 
-#: templates/person-calls.php:24
+#: templates/contact-calls.php:24
 msgid "Phone Calls"
 msgstr "Telefoongesprekken"
 
-#: templates/person-calls.php:30
+#: templates/contact-calls.php:30
 msgid "No phone calls found."
 msgstr "Geen telefoongesprekken gevonden."
 
-#: templates/person-calls.php:39
+#: templates/contact-calls.php:39
 msgid "Date / Time"
 msgstr "Datum / tijd"
 
-#: templates/person-calls.php:40
+#: templates/contact-calls.php:40
 msgid "Direction"
 msgstr "Richting"
 
-#: templates/person-calls.php:41
+#: templates/contact-calls.php:41
 msgid "Duration"
 msgstr "Duur"
 
-#: templates/person-calls.php:74
+#: templates/contact-calls.php:74
 msgid "Inbound"
 msgstr "Inkomend"
 
-#: templates/person-calls.php:78
+#: templates/contact-calls.php:78
 msgid "Outbound"
 msgstr "Uitgaand"

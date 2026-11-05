@@ -73,7 +73,7 @@ foreach ( $notifications as $notification ) {
 		continue;
 	}
 
-	$generated_at = new DateTime( $post_data_json->timestamp );
+	$generated_at = ( new DateTimeImmutable( $post_data_json->timestamp ) )->setTimezone( new DateTimeZone( 'UTC' ) );
 
 	$result = $statement->execute( array(
 		'call_id'               => $post_data_json->call_id,
