@@ -1,0 +1,23 @@
+{
+	"core": null,
+	"config": {
+		"SAVEQUERIES": true,
+		"WP_DEBUG_LOG": true,
+		"WPLANG": "nl_NL"
+	},
+	"phpVersion": "8.3",
+	"plugins": [
+		"solvebeam/solvebeam-quick-login-for-wp-env",
+		"https://downloads.wordpress.org/plugin/plugin-check.zip",
+		"https://downloads.wordpress.org/plugin/posts-to-posts.zip",
+		"https://downloads.wordpress.org/plugin/pronamic-client.zip",
+		"https://downloads.wordpress.org/plugin/query-monitor.zip"
+	],
+	"mappings": {
+		"wp-content/plugins/orbis-contacts": "https://github.com/pronamic/wp-orbis-contacts/releases/download/v1.0.0-rc.2/orbis-contacts.1.0.0.zip",
+		"wp-content/plugins/orbis-persons": "https://github.com/pronamic/wp-orbis-persons/releases/download/v1.0.0-rc.1/orbis-persons.1.0.0.zip",
+		"wp-content/plugins/orbis-voys-dev": "./",
+		"wp-content/plugins/orbis-voys": "./build/orbis-voys/"
+	},
+	"testsEnvironment": false
+}

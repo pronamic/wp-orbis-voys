@@ -1,0 +1,28 @@
+{
+	"name": "@pronamic/wp-orbis-voys",
+	"version": "1.0.0",
+	"description": "The Orbis Voys plugin shows Voys phone calls on Orbis persons.",
+	"author": "Pronamic",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"orbis",
+		"voys"
+	],
+	"homepage": "https://github.com/pronamic/wp-orbis-voys#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pronamic/wp-orbis-voys.git"
+	},
+	"bugs": {
+		"url": "https://github.com/pronamic/wp-orbis-voys/issues"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@wordpress/env": "^11.16.0",
+		"@wordpress/scripts": "^36.0.0"
+	},
+	"prettier": "@wordpress/prettier-config",
+	"scripts": {
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
+	}
+}

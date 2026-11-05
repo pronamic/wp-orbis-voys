@@ -2,37 +2,43 @@
 /**
  * Orbis Voys
  *
- * @package           Pronamic\WordPress\Orbis\Voys
- * @author            Pronamic
- * @copyright         2021 Pronamic
- * @license           GPL-2.0-or-later
+ * @author    Pronamic
+ * @copyright 2005-2026 Pronamic
+ * @license   GPL-2.0-or-later
+ * @package   Pronamic\Orbis\Voys
  *
  * @wordpress-plugin
  * Plugin Name:       Orbis Voys
- * Plugin URI:        https://www.pronamic.eu/plugins/orbis-voys/
- * Description:       The Orbis Voys plugin can process Voys call notifications and display calls in your Orbis installation.
+ * Plugin URI:        https://wp.pronamic.directory/plugins/orbis-voys/
+ * Description:       The Orbis Voys plugin shows Voys phone calls on Orbis persons.
  * Version:           1.0.0
- * Requires at least: 5.2
- * Requires PHP:      7.2
+ * Requires at least: 7.1
+ * Requires PHP:      8.3
+ * Requires Plugins:  orbis-contacts, orbis-persons
  * Author:            Pronamic
  * Author URI:        https://www.pronamic.eu/
  * Text Domain:       orbis-voys
- * License:           GPL v2 or later
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Domain Path:       /languages/
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Update URI:        https://wp.pronamic.directory/plugins/orbis-voys/
+ * GitHub URI:        https://github.com/pronamic/wp-orbis-voys
  */
 
-/**
- * Autoload.
- */
-require __DIR__ . '/vendor/autoload.php';
+declare(strict_types=1);
 
-/**
- * Action.
- */
-add_action( 'orbis_after_side_content', function() {
-    if ( ! is_singular( 'orbis_person' ) ) {
-        return;
-    }
+namespace Pronamic\Orbis\Voys;
 
-    include __DIR__ . '/templates/person-calls.php';
-} );
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+( static function (): void {
+	$autoload_path = __DIR__ . '/vendor/autoload_packages.php';
+
+	if ( \file_exists( $autoload_path ) ) {
+		require_once $autoload_path;
+	}
+
+	Plugin::instance();
+} )();

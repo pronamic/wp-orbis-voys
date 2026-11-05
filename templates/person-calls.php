@@ -1,159 +1,94 @@
 <?php
+/**
+ * Person calls
+ *
+ * @author    Pronamic
+ * @copyright 2005-2026 Pronamic
+ * @license   GPL-2.0-or-later
+ * @package   Pronamic\Orbis\Voys
+ *
+ * @var list<array{call_id: string, direction: string, caller_number: string, caller_name: string, in_progress_at: string, ended_at: string}> $calls Calls from and to the phone numbers of the person.
+ */
 
-$post = get_post();
+namespace Pronamic\Orbis\Voys;
 
-$numbers = array(
-    get_post_meta( $post->ID, '_orbis_phone_number', true ),
-    get_post_meta( $post->ID, '_orbis_mobile_number', true ),
-);
+use DateTimeImmutable;
+use Exception;
 
-$numbers = array_filter( $numbers );
-
-$phone_numbers = array();
-
-$phone_util = \libphonenumber\PhoneNumberUtil::getInstance();
-
-foreach ( $numbers as $number ) {
-    try {
-        $phone_number_object = $phone_util->parse( $number, 'NL' );
-
-        $phone_numbers[] = $phone_util->format( $phone_number_object, \libphonenumber\PhoneNumberFormat::E164 );
-        $phone_numbers[] = '0' . $phone_number_object->getNationalNumber();
-    } catch ( NumberParseException $e ) {
-
-    }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
-if ( ! empty( $phone_numbers ) ) : ?>
+?>
+<div class="card mb-3">
+	<div class="card-header"><?php \esc_html_e( 'Phone Calls', 'orbis-voys' ); ?></div>
 
-    <div class="card mb-3">
-        <div class="card-header"><?php esc_html_e( 'Telefoongesprekken', 'orbis' ); ?></div>
+	<?php if ( [] === $calls ) : ?>
 
-        <?php
+		<div class="card-body">
+			<p class="m-0 text-muted">
+				<?php \esc_html_e( 'No phone calls found.', 'orbis-voys' ); ?>
+			</p>
+		</div>
 
-        global $wpdb;
+	<?php else : ?>
 
-        $where = '1 = 1';
+		<table class="table table-striped mb-0">
+			<thead>
+				<tr>
+					<th scope="col"><?php \esc_html_e( 'Date / Time', 'orbis-voys' ); ?></th>
+					<th scope="col"><span class="visually-hidden"><?php \esc_html_e( 'Direction', 'orbis-voys' ); ?></span></th>
+					<th scope="col"><?php \esc_html_e( 'Duration', 'orbis-voys' ); ?></th>
+				</tr>
+			</thead>
 
-        $where .= $wpdb->prepare( ' AND notification_start.status = %s', 'in-progress' );
-        $where .= $wpdb->prepare( ' AND notification_end.status = %s', 'ended' );
+			<tbody>
 
-        $where .= ' AND ( ';
+				<?php foreach ( $calls as $call ) : ?>
 
-        $where .= $wpdb->prepare(
-            sprintf(
-                "notification_start.caller_number IN ( %s )",
-                implode( ',', array_fill( 0, count( $phone_numbers ), '%s' ) )
-            ),
-            $phone_numbers
-        );
+					<?php
 
-        $where .= ' OR ';
+					try {
+						$in_progress_at = new DateTimeImmutable( $call['in_progress_at'] );
+						$ended_at       = new DateTimeImmutable( $call['ended_at'] );
+					} catch ( Exception ) {
+						continue;
+					}
 
-        $where .= $wpdb->prepare(
-            sprintf(
-                "notification_start.destination_number IN ( %s )",
-                implode( ',', array_fill( 0, count( $phone_numbers ), '%s' ) )
-            ),
-            $phone_numbers
-        );
+					$seconds = \max( 0, $ended_at->getTimestamp() - $in_progress_at->getTimestamp() );
 
-        $where .= ')';
+					$duration = \sprintf( '%02d:%02d:%02d', \intdiv( $seconds, 3600 ), \intdiv( $seconds % 3600, 60 ), $seconds % 60 );
 
-        $query = "
-            SELECT
-                notification_start.call_id,
-                notification_start.direction,
-                notification_start.caller_number,
-                notification_start.caller_name,
-                notification_start.caller_account_number,
-                notification_start.generated_at AS in_progress_at,
-                notification_end.generated_at AS ended_at
-            FROM 
-                orbis_voys_notifications AS notification_start
-                    INNER JOIN
-                orbis_voys_notifications AS notification_end
-                        ON notification_start.call_id = notification_end.call_id
-            WHERE
-                $where
-            ORDER BY
-                notification_start.generated_at DESC
-            LIMIT
-                0, 40
-            ;
-        ";
+					?>
 
-        $calls = $wpdb->get_results( $query );
+					<tr>
+						<td>
+							<?php echo \esc_html( $in_progress_at->format( 'd-m-Y H:i:s' ) ); ?>
+						</td>
+						<td>
+							<span class="fa-stack">
+								<i class="fas fa-phone fa-flip-horizontal"></i>
 
-        if ( filter_input( INPUT_GET, 'debug_voys', FILTER_VALIDATE_BOOLEAN ) ) {
-            echo '<pre>', $query, '</pre>';
-        }
+								<?php if ( 'inbound' === $call['direction'] ) : ?>
 
-        if ( empty( $calls ) ) : ?>
+									<i class="fas fa-arrow-left" style="color: Green; transform: rotate( -45deg );" title="<?php \esc_attr_e( 'Inbound', 'orbis-voys' ); ?>"></i>
 
-            <div class="card-body">
-                <p class="m-0 text-muted">
-                    Geen telefoongesprekken gevonden.
-                </p>
-            </div>
+								<?php elseif ( 'outbound' === $call['direction'] ) : ?>
 
-        <?php else : ?>
+									<i class="fas fa-arrow-right" style="color: Red; transform: rotate( -45deg );" title="<?php \esc_attr_e( 'Outbound', 'orbis-voys' ); ?>"></i>
 
-            <table class="table table-striped mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col">Datum / tijd</th>
-                        <th scope="col"></th>
-                        <th scope="col">Duur</th>
-                    </tr>
-                </thead>
+								<?php endif; ?>
+							</span>
+						</td>
+						<td>
+							<?php echo \esc_html( $duration ); ?>
+						</td>
+					</tr>
 
-                <tbody>
-                    
-                    <?php foreach ( $calls as $call ) : ?>
+				<?php endforeach; ?>
 
-                        <tr>
-                            <?php
+			</tbody>
+		</table>
 
-                            $in_progress_at = new DateTime( $call->in_progress_at );
-                            $ended_at       = new DateTime( $call->ended_at );
-
-                            $time = $ended_at->getTimestamp() - $in_progress_at->getTimestamp();
-
-                            ?>
-                            <td>
-                                <?php echo esc_html( $in_progress_at->format( 'd-m-Y H:i:s' ) ); ?>
-                            </td>
-                            <td>
-                                <span class="fa-stack">
-                                    <i class="fas fa-phone fa-flip-horizontal"></i>
-
-                                    <?php 
-
-                                    switch ( $call->direction ) {
-                                        case 'inbound':
-                                            echo '<i class="fas fa-arrow-left" style="color: Green; transform: rotate( -45deg );"></i>';
-                                            break;
-                                        case 'outbound':
-                                            echo '<i class="fas fa-arrow-right" style="color: Red; transform: rotate( -45deg );"></i>';
-                                            break;
-                                    }
-
-                                    ?>                                              
-                                </span>
-                            </td>
-                            <td>
-                                <?php echo esc_html( orbis_time( $time, 'HH:MM:SS' ) ); ?>
-                            </td>
-                        </tr>
-
-                    <?php endforeach; ?>
-
-                </tbody>
-            </table>
-
-        <?php endif; ?>
-
-    </div>
-
-<?php endif; ?>
+	<?php endif; ?>
+</div>
